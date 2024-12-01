@@ -36,7 +36,7 @@ void diff_openmp(double** C, double** C_new, int threads) {
     omp_set_num_threads(threads);
     for (int t = 0; t < T; t++) { // iterações
 
-    #pragma omp parallel for collapse(2) // collapse vai pegar os 2 próximos for's
+        #pragma omp parallel for collapse(2) // collapse vai pegar os 2 próximos for's
 
         for (int i = 1; i < N - 1; i++) { // linhas
             for (int j = 1; j < N - 1; j++) { // colunas
@@ -45,6 +45,7 @@ void diff_openmp(double** C, double** C_new, int threads) {
                 );
             }
         }
+        
         double difmedio = 0.;
         #pragma omp parallel for collapse(2) reduction(+:difmedio)
         // Atualizar matriz para a próxima iteração
